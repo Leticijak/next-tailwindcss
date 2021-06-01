@@ -1,10 +1,11 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+
 import Layout from '@/comps/Layout'
 import Link from 'next/link'
 import Post from '@/comps/Post'
-import { sortByDate } from '@/utils/index'
+import { getPosts } from '@/lib/posts'
 
 export default function CatBlogPage({ posts, categoryName }) {
   console.log(posts)
@@ -52,22 +53,7 @@ export async function getStaticProps({ params: { category_name } }) {
   const files = fs.readdirSync(path.join('posts'))
 
   // Create slug with replace method
-  const posts = files.map((filename) => {
-    const slug = filename.replace('.md', '')
-
-    const markdownWithMeta = fs.readFileSync(
-      path.join('posts', filename),
-      'utf-8'
-    )
-    // parsing gray matter into an object
-
-    const { data: frontmatter } = matter(markdownWithMeta)
-
-    return {
-      slug,
-      frontmatter,
-    }
-  })
+  const posts = getPosts()
   // Filter post by category
 
   const categoryPosts = posts.filter(
@@ -76,7 +62,7 @@ export async function getStaticProps({ params: { category_name } }) {
 
   return {
     props: {
-      posts: categoryPosts.sort(sortByDate),
+      posts: categoryPosts,
       category_name: category_name,
     },
   }

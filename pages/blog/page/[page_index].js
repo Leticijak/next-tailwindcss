@@ -2,10 +2,10 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import Layout from '@/comps/Layout'
-import Link from 'next/link'
+
 import Post from '@/comps/Post'
 import Pagination from '@/comps/Pagination'
-import { sortByDate } from '@/utils/index'
+import { getPosts } from '@/lib/posts'
 import { POSTS_PER_PAGE } from '@/config/index'
 
 export default function BlogPage({ posts, numPages, currentPage }) {
@@ -48,28 +48,14 @@ export async function getStaticProps({ params }) {
   const files = fs.readdirSync(path.join('posts'))
 
   // Create slug with replace method
-  const posts = files.map((filename) => {
-    const slug = filename.replace('.md', '')
-
-    const markdownWithMeta = fs.readFileSync(
-      path.join('posts', filename),
-      'utf-8'
-    )
-    // parsing gray matter into an object
-
-    const { data: frontmatter } = matter(markdownWithMeta)
-
-    return {
-      slug,
-      frontmatter,
-    }
-  })
+  const posts = getPosts()
 
   const numPages = Math.ceil(files.length / POSTS_PER_PAGE)
   const pageIndex = page - 1
-  const orderedPosts = posts
-    .sort(sortByDate)
-    .slice(pageIndex * POSTS_PER_PAGE, (pageIndex + 1) * POSTS_PER_PAGE)
+  const orderedPosts = posts.slice(
+    pageIndex * POSTS_PER_PAGE,
+    (pageIndex + 1) * POSTS_PER_PAGE
+  )
 
   return {
     props: {
