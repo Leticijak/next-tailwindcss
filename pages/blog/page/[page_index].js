@@ -7,19 +7,27 @@ import Post from '@/comps/Post'
 import Pagination from '@/comps/Pagination'
 import { getPosts } from '@/lib/posts'
 import { POSTS_PER_PAGE } from '@/config/index'
+import CategoryList from '@/comps/CategoryList'
 
-export default function BlogPage({ posts, numPages, currentPage }) {
-  console.log(posts)
+export default function BlogPage({ posts, numPages, currentPage, categories }) {
   return (
     <Layout>
-      <h1 className='text-5xl border-b-4 p-5 font-bold'>BLOG</h1>
+      <div className='flex justify-between'>
+        <div className='mr-10 w-3/4'>
+          <h1 className='text-5xl border-b-4 p-5 font-bold'>BLOG</h1>
 
-      <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5'>
-        {posts.map((post, index) => (
-          <Post key={index} post={post} />
-        ))}
+          <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-5'>
+            {posts.map((post, index) => (
+              <Post key={index} post={post} />
+            ))}
+          </div>
+          <Pagination currentPage={currentPage} numPages={numPages} />
+        </div>
+
+        <div className='w-1/4'>
+          <CategoryList categories={categories} />
+        </div>
       </div>
-      <Pagination currentPage={currentPage} numPages={numPages} />
     </Layout>
   )
 }
@@ -35,7 +43,7 @@ export async function getStaticPaths() {
       params: { page_index: i.toString() },
     })
   }
-  console.log(paths)
+
   return {
     paths,
     fallback: false,
@@ -50,6 +58,12 @@ export async function getStaticProps({ params }) {
   // Create slug with replace method
   const posts = getPosts()
 
+  // Get categorys for sidebar
+  const categories = posts.map((post) => post.frontmatter.category)
+  // easy way
+
+  const uniqueCategories = [...new Set(categories)]
+
   const numPages = Math.ceil(files.length / POSTS_PER_PAGE)
   const pageIndex = page - 1
   const orderedPosts = posts.slice(
@@ -62,6 +76,7 @@ export async function getStaticProps({ params }) {
       posts: orderedPosts,
       numPages,
       currentPage: page,
+      categories: uniqueCategories,
     },
   }
 }

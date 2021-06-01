@@ -5,7 +5,6 @@ import Post from '@/comps/Post'
 import { getPosts } from '@/lib/posts'
 
 export default function HomePage({ posts }) {
-  console.log(posts)
   return (
     <Layout>
       <h1 className='text-5xl border-b-4 p-5 font-bold'>Latest Posts</h1>
