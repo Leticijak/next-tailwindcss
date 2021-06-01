@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import Layout from '../comps/Layout'
+import Layout from '@/comps/Layout'
 
 export default function NotFoundPage() {
   return (

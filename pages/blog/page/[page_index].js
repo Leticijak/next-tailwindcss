@@ -1,12 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import Layout from '../../../comps/Layout'
+import Layout from '@/comps/Layout'
 import Link from 'next/link'
-import Post from '../../../comps/Post'
-import Pagination from '../../../comps/Pagination'
-import { sortByDate } from '../../../utils/index'
-import { POSTS_PER_PAGE } from '../../../config/index'
+import Post from '@/comps/Post'
+import Pagination from '@/comps/Pagination'
+import { sortByDate } from '@/utils/index'
+import { POSTS_PER_PAGE } from '@/config/index'
 
 export default function BlogPage({ posts, numPages, currentPage }) {
   console.log(posts)

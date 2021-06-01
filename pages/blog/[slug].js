@@ -3,8 +3,8 @@ import path from 'path'
 import matter from 'gray-matter'
 import marked from 'marked'
 import Link from 'next/link'
-import Layout from '../../comps/Layout'
-import CatLabel from '../../comps/CatLabel'
+import Layout from '@/comps/Layout'
+import CatLabel from '@/comps/CatLabel'
 
 export default function PostPage({
   frontmatter: {
