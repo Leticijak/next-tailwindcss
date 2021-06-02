@@ -1,11 +1,11 @@
 {
-    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-        "@/comps/*": ["comps/*"],
-        "@/config/*": ["config/*"],
-        "@/utils/*": ["utils/*"],
-        "@/lib/*": ["lib/*"]
-      }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/comps/*": ["comps/*"],
+      "@/config/*": ["config/*"],
+      "@/utils/*": ["utils/*"],
+      "@/lib/*": ["lib/*"]
     }
   }
+}

@@ -10,6 +10,7 @@ export default (req, res) => {
     const files = fs.readdirSync(path.join('posts'))
 
     posts = files.map((filename) => {
+      const slug = filename.replace('.md', '')
       const markDownWithMeta = fs.readFileSync(
         path.join('posts', filename),
         'utf-8'
@@ -17,6 +18,7 @@ export default (req, res) => {
       const { data: frontmatter } = matter(markDownWithMeta)
       return {
         frontmatter,
+        slug,
       }
     })
   }
