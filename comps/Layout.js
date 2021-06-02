@@ -9,12 +9,11 @@ export default function Layout({ title, keywords, description, children }) {
         <title>{title}</title>
         <meta name='keywords' content={keywords} />
         <meta name='description' content={description} />
-        <link rel='icon' href='/logo2.webp' />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <Header />
       <Search />
-
       <main className='container mx-auto my-7'>{children}</main>
     </div>
   )
@@ -22,6 +21,6 @@ export default function Layout({ title, keywords, description, children }) {
 
 Layout.defaultProps = {
   title: 'Welcome to BlogSpace',
-  keywords: 'coding, programming, ',
-  description: 'Random stuff about development',
+  keywords: 'development, coding, programming',
+  description: 'The best info and news in development',
 }

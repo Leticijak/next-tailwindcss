@@ -1,7 +1,6 @@
-import Layout from '@/comps/Layout'
 import Link from 'next/link'
+import Layout from '@/comps/Layout'
 import Post from '@/comps/Post'
-
 import { getPosts } from '@/lib/posts'
 
 export default function HomePage({ posts }) {
